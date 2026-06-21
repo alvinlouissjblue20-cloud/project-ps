@@ -1,4 +1,3 @@
-<!-- Memaksa memuat JavaScript Alpine agar dropdown nama langsung bisa diklik -->
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
 <x-app-layout>
@@ -6,64 +5,57 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             @if(auth()->user()->role == 'admin')
-            <!-- ======================================================== -->
-            <!-- ADMIN DASHBOARD -->
-            <!-- ======================================================== -->
+            
             <div class="mb-10 flex flex-col md:flex-row md:items-center md:justify-between border-b border-indigo-100/80 pb-6">
                 <div>
                     <h1 class="text-3xl font-black text-gray-900 tracking-tight bg-gradient-to-r from-gray-900 to-indigo-950 bg-clip-text text-transparent">
-                        Dashboard Ringkasan Admin
+                        Dashboard Admin
                     </h1>
                     <p class="text-sm font-medium text-slate-500 mt-1">Pantau performa bisnis rental PS kamu secara real-time.</p>
                 </div>
-                <div class="mt-4 md:mt-0 inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 px-4 py-2 rounded-full text-xs font-bold tracking-wide border border-emerald-100 self-start">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    SISTEM LIVE DAN AKTIF
-                </div>
             </div>
 
-           <a href="{{ route('keuangan') }}"
-   class="block cursor-pointer transition duration-300 hover:scale-[1.01]">
+            <a href="{{ route('keuangan') }}" class="block cursor-pointer transition duration-300 hover:scale-[1.01]">
+                <div class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-900 rounded-3xl p-8 mb-8 shadow-xl shadow-indigo-950/20 overflow-hidden group">
+                    <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-indigo-500/20 blur-3xl group-hover:scale-125 transition-transform duration-700 pointer-events-none"></div>
+                    <div class="absolute right-10 bottom-0 text-white/[0.03] text-9xl font-black select-none pointer-events-none tracking-tighter">
+                        CASH
+                    </div>
 
-<div class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-900 rounded-3xl p-8 mb-8 shadow-xl shadow-indigo-950/20 overflow-hidden group">
-                <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-indigo-500/20 blur-3xl group-hover:scale-125 transition-transform duration-700 pointer-events-none"></div>
-                <div class="absolute right-10 bottom-0 text-white/[0.03] text-9xl font-black select-none pointer-events-none tracking-tighter">
-                    CASH
-                </div>
-
-                <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-                    <div>
-                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-md border border-indigo-500/20">
-                            Keuangan Bulan Ini
-                        </span>
-                        <h2 class="text-sm font-medium text-indigo-200/80 mt-4">Total Pemasukan Bisnis</h2>
-                        <p class="text-4xl md:text-5xl font-black text-white tracking-tight mt-1">
-                            Rp {{ number_format($totalPemasukan, 0, ',', '.') }}
-                        </p>
+                    <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-indigo-300 bg-indigo-500/10 px-3 py-1 rounded-md border border-indigo-500/20">
+                                Keuangan Bulan Ini
+                            </span>
+                            <h2 class="text-sm font-medium text-indigo-200/80 mt-4">Total Pemasukan Bisnis</h2>
+                            <p class="text-4xl md:text-5xl font-black text-white tracking-tight mt-1">
+                                Rp {{ number_format($totalPemasukan, 0, ',', '.') }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(99,102,241,0.02)] border border-indigo-500/5 flex items-center justify-between">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
                     <div>
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Ruangan</p>
                         <p class="text-3xl font-black text-slate-800 tracking-tight mt-2">{{ $totalRooms }}</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(99,102,241,0.02)] border border-indigo-500/5 flex items-center justify-between">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
                     <div>
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Tersedia</p>
                         <p class="text-3xl font-black text-emerald-600 tracking-tight mt-2">{{ $tersedia }}</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(99,102,241,0.02)] border border-indigo-500/5 flex items-center justify-between">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
                     <div>
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Dipakai</p>
                         <p class="text-3xl font-black text-rose-600 tracking-tight mt-2">{{ $dipakai }}</p>
                     </div>
                 </div>
-                <div class="bg-white rounded-2xl p-6 shadow-[0_8px_30px_rgb(99,102,241,0.02)] border border-indigo-500/5 flex items-center justify-between">
+                <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
                     <div>
                         <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Booking</p>
                         <p class="text-3xl font-black text-amber-500 tracking-tight mt-2">{{ $totalBooking }}</p>
@@ -74,33 +66,42 @@
             <div class="mt-12">
                 <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Akses Manajemen Inti</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    <a href="/rooms" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-indigo-500/30 transition-all">
+                    <a href="/rooms" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-indigo-500/30 transition-all shadow-sm">
                         <div class="text-xs font-bold p-3 bg-indigo-50/60 text-indigo-600 rounded-xl">PS</div>
                         <h3 class="font-bold text-slate-800">Kelola Ruangan</h3>
                     </a>
-                    <a href="/bookings" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-emerald-500/30 transition-all">
+                    
+                    <a href="/bookings" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-emerald-500/30 transition-all shadow-sm">
                         <div class="text-xs font-bold p-3 bg-emerald-50/60 text-emerald-600 rounded-xl">REC</div>
                         <h3 class="font-bold text-slate-800">Data Booking</h3>
+                    </a>
+
+                    <a href="/users" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-amber-500/30 transition-all shadow-sm">
+                        <div class="text-xs font-bold p-3 bg-amber-50/60 text-amber-600 rounded-xl">US</div>
+                        <h3 class="font-bold text-slate-800">Kelola User</h3>
+                    </a>
+
+                    <a href="/foods" class="group flex items-center gap-4 p-5 bg-white rounded-2xl border border-indigo-100/50 hover:border-emerald-500/30 transition-all shadow-sm">
+                        <div class="text-xs font-bold p-3 bg-emerald-50/60 text-emerald-600 rounded-xl">FD</div>
+                        <h3 class="font-bold text-slate-800">Kelola Makanan</h3>
                     </a>
                 </div>
             </div>
 
             @else
-            <!-- ======================================================== -->
-            <!-- USER DASHBOARD -->
-            <!-- ======================================================== -->
+            
             <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-indigo-100/60 pb-6 gap-4">
                 <div>
                     <h1 class="text-3xl font-black text-gray-900 tracking-tight">
                         Selamat Datang, <span class="text-indigo-600">{{ auth()->user()->name }}</span>!
                     </h1>
                     <p class="text-sm font-semibold text-slate-500 mt-1">
-                        Pilih ruangan favoritmu dan mulai mabar bareng squad.
+                        Pilih ruangan dan main sampe lupa waktu.
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="/bookings" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
-                        Riwayat Main Saya
+                        Riwayat Orang yang main
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline m-0">
                         @csrf
@@ -111,7 +112,6 @@
                 </div>
             </div>
 
-            <!-- MINI LIVE MONITOR STATUS UNTUK USER -->
             <div class="grid grid-cols-3 gap-4 mb-8 max-w-lg">
                 <div class="bg-white px-4 py-3 rounded-xl border border-slate-100 shadow-sm">
                     <p class="text-[10px] font-bold text-slate-400 uppercase">Total Room</p>
@@ -133,7 +133,6 @@
                     <span class="inline-flex items-center bg-emerald-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">Ready To Play</span>
                 </div>
 
-                <!-- GRID LAYOUT YANG PADAT DAN PROPORSIONAL -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($rooms as $room)
                         @php 
@@ -142,8 +141,7 @@
                         
                         <div class="bg-white rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden relative shadow-sm
                             {{ $isDipakai ? 'border-rose-200/80 bg-rose-50/[0.01]' : 'border-slate-200 hover:border-indigo-500/30 hover:shadow-md hover:-translate-y-1' }}">
-                            
-                            <!-- Bagian Atas Card -->
+
                             <div class="p-6">
                                 <div class="flex justify-between items-center mb-4">
                                     <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-black uppercase tracking-wider bg-indigo-50 text-indigo-600 border border-indigo-100">
@@ -161,18 +159,15 @@
                                     @endif
                                 </div>
 
-                                <!-- Nama Ruangan -->
                                 <h3 class="text-2xl font-black text-slate-800 tracking-tight mb-2">
                                     {{ $room->nama_ruangan }}
                                 </h3>
 
-                                <!-- Detail Harga Utama -->
                                 <p class="text-xl font-extrabold text-amber-500 tracking-tight">
                                     Rp {{ number_format($room->harga_per_jam ?? 8000, 0, ',', '.') }} <span class="text-xs font-medium text-slate-400">/ jam</span>
                                 </p>
                             </div>
 
-                            <!-- Bagian Tombol Aksi Bawah -->
                             <div class="p-4 bg-slate-50/70 border-t border-slate-100 flex items-center justify-center">
                                 @if($isDipakai)
                                     <button disabled 
