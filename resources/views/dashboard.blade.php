@@ -24,11 +24,16 @@
                 </div>
             </div>
 
-            <div class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-900 rounded-3xl p-8 mb-8 shadow-xl shadow-indigo-950/20 overflow-hidden group">
+           <a href="{{ route('keuangan') }}"
+   class="block cursor-pointer transition duration-300 hover:scale-[1.01]">
+
+<div class="relative bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-900 rounded-3xl p-8 mb-8 shadow-xl shadow-indigo-950/20 overflow-hidden group">
                 <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-indigo-500/20 blur-3xl group-hover:scale-125 transition-transform duration-700 pointer-events-none"></div>
                 <div class="absolute right-10 bottom-0 text-white/[0.03] text-9xl font-black select-none pointer-events-none tracking-tighter">
                     CASH
                 </div>
+
+                </a>
 
                 <div class="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                     <div>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Room;
 use App\Models\Booking;
+use App\Models\Room;
 
 class DashboardController extends Controller
 {
@@ -32,4 +32,14 @@ class DashboardController extends Controller
 
         ));
     }
+    public function keuangan()
+{
+    $bookings = Booking::where('status', 'selesai')
+        ->latest()
+        ->get();
+
+    $total = $bookings->sum('total_harga');
+
+    return view('keuangan', compact('bookings', 'total'));
+}
 }

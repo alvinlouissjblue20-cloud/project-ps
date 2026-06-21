@@ -25,6 +25,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/keuangan', [DashboardController::class, 'keuangan'])
+    ->name('keuangan');
+
 Route::get('/bookings/{id}/selesai', [BookingController::class, 'selesai']);
 
 Route::resource('rooms', RoomController::class);
