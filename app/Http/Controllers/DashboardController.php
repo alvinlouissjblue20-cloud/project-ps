@@ -19,7 +19,7 @@ class DashboardController extends Controller
 
         $totalPemasukan = Booking::sum('total_harga');
 
-        $rooms = Room::where('status', 'tersedia')->get();
+        $rooms = Room::orderBy('nama_ruangan', 'asc')->get();
 
         return view('dashboard', compact(
 
