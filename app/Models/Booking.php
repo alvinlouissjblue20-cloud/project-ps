@@ -32,7 +32,7 @@ class Booking extends Model
 
     public function foods()
     {
-        return $this->belongsToMany(Food::class)->withPivot('jumlah');
+        return $this->belongsToMany(Food::class)->withPivot('qty');
     }
 
     public function keuangan()

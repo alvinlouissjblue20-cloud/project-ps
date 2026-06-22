@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Booking;
 
 class Food extends Model
 {
@@ -15,7 +16,7 @@ class Food extends Model
 
     ];
 
-    public function foods()
+    public function bookings()
 {
     return $this->belongsToMany(Food::class)
         ->withPivot('qty')

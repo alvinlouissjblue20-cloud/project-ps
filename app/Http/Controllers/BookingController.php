@@ -87,10 +87,12 @@ if($request->foods)
         ->with('success', 'Booking selesai!');
     }
     public function show(Booking $booking)
-{
-    if (auth()->user()->role != 'admin' && $booking->user_id != auth()->id()) {
-        abort(403);
+    {
+            $booking->load(['user', 'room', 'foods']);
+            if (auth()->user()->role != 'admin' && $booking->user_id != auth()->id()) 
+                {abort(403);
     }
+    
 
     return view('bookings.show', compact('booking'));
 }
