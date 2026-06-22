@@ -70,9 +70,9 @@ if($request->foods)
             ->with('success', 'Booking berhasil!');
     }
 
-    public function selesai($id)
-    
+    public function selesai($id) 
     {
+        
     $booking = Booking::findOrFail($id);
 
     $booking->status = 'selesai';
@@ -86,4 +86,12 @@ if($request->foods)
     return redirect('/bookings')
         ->with('success', 'Booking selesai!');
     }
+    public function show(Booking $booking)
+{
+    if (auth()->user()->role != 'admin' && $booking->user_id != auth()->id()) {
+        abort(403);
+    }
+
+    return view('bookings.show', compact('booking'));
+}
 }

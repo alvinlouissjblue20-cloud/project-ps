@@ -27,6 +27,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::get('/keuangan', [DashboardController::class, 'keuangan'])
     ->name('keuangan');
+    
+Route::get('/keuangan/{id}', [DashboardController::class, 'nota'])
+    ->name('nota');
 
 Route::get('/bookings/{id}/selesai', [BookingController::class, 'selesai']);
 

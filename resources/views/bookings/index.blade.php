@@ -94,30 +94,20 @@
 
                         </td>
 
-                        <td class="p-4">
-
-                            @if($booking->status == 'aktif')
-
-                            <a href="/bookings/{{ $booking->id }}/selesai"
-
-                                class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
-
-                                Selesai
-
+                        <td class="p-4 flex gap-2">
+                            <a href="{{ route('bookings.show', $booking->id) }}"
+                                 class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                                     Nota
                             </a>
-
-                            @else
-
-                            <span class="text-gray-500">
-                                -
-                            </span>
-
+                            @if($booking->status == 'aktif')
+                            <a href="/bookings/{{ $booking->id }}/selesai"
+                                     class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+                                    Selesai
+                            </a>
                             @endif
-
                         </td>
-
                     </tr>
-
+                    
                     @endforeach
 
                 </tbody>

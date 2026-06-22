@@ -35,6 +35,19 @@ class Booking extends Model
         return $this->belongsToMany(Food::class)->withPivot('jumlah');
     }
 
+    public function keuangan()
+    
+    {
+    $bookings = Booking::with(['user', 'room'])
+        ->where('status', 'selesai')
+        ->latest()
+        ->get();
+
+    $total = $bookings->sum('total_harga');
+
+    return view('keuangan', compact('bookings', 'total'));
+    }
+
     public static function checkAndCloseExpiredBookings()
     {
         $activeBookings = self::where('status', 'aktif')->get();

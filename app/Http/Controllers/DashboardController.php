@@ -33,7 +33,7 @@ class DashboardController extends Controller
         ));
     }
     public function keuangan()
-{
+    {
     $bookings = Booking::where('status', 'selesai')
         ->latest()
         ->get();
@@ -41,5 +41,13 @@ class DashboardController extends Controller
     $total = $bookings->sum('total_harga');
 
     return view('keuangan', compact('bookings', 'total'));
-}
+    }
+
+    public function nota($id)
+    {
+    $booking = Booking::with(['user', 'room'])
+        ->findOrFail($id);
+
+    return view('nota', compact('booking'));
+    }
 }
