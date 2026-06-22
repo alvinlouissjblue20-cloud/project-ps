@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
@@ -27,11 +28,27 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
 Route::get('/keuangan', [DashboardController::class, 'keuangan'])
     ->name('keuangan');
-    
+
 Route::get('/keuangan/{id}', [DashboardController::class, 'nota'])
     ->name('nota');
 
 Route::get('/bookings/{id}/selesai', [BookingController::class, 'selesai']);
+
+
+Route::get('/users', function () {
+    $users = User::all();
+
+    return view('users.index', compact('users'));
+});
+
+Route::get('/users/{id}', function ($id) {
+
+    $user = User::with('bookings.room')
+        ->findOrFail($id);
+
+    return view('users.show', compact('user'));
+
+});
 
 Route::resource('rooms', RoomController::class);
 
