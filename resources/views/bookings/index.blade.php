@@ -33,6 +33,7 @@
                         <th class="p-4 text-left">Ruangan</th>
                         <th class="p-4 text-left">Tanggal</th>
                         <th class="p-4 text-left">Jam</th>
+                        <th class="p-4 text-left">Jam Selesai</th>
                         <th class="p-4 text-left">Durasi</th>
                         <th class="p-4 text-left">Total</th>
                         <th class="p-4 text-left">Status</th>
@@ -62,6 +63,10 @@
 
                         <td class="p-4">
                             {{ $booking->jam_mulai }}
+                        </td>
+
+                        <td class="p-4">
+                            {{ $booking->jam_selesai }}
                         </td>
 
                         <td class="p-4">
@@ -107,7 +112,7 @@
                             @endif
                         </td>
                     </tr>
-                    
+
                     @endforeach
 
                 </tbody>

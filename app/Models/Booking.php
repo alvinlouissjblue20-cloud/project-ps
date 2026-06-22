@@ -34,9 +34,14 @@ class Booking extends Model
     {
         return $this->belongsToMany(Food::class)->withPivot('qty');
     }
-
+    public function getJamSelesaiAttribute()
+    {
+    return \Carbon\Carbon::parse($this->jam_mulai)
+        ->addHours($this->durasi)
+        ->format('H:i');
+    }
     public function keuangan()
-    
+
     {
     $bookings = Booking::with(['user', 'room'])
         ->where('status', 'selesai')

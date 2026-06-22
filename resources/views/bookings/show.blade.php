@@ -15,6 +15,7 @@
             <p><strong>harga_per_jam:</strong> Rp {{ number_format($booking->room->harga_per_jam,0,',','.') }}</p>
             <p><strong>Tanggal:</strong> {{ $booking->tanggal }}</p>
             <p><strong>Jam Mulai:</strong> {{ $booking->jam_mulai }}</p>
+            <p><strong>Jam Selesai:</strong> {{ $booking->jam_selesai }}</p>
             <p><strong>Durasi:</strong> {{ $booking->durasi }} Jam</p>
             <p><strong>Subtotal Room:</strong> Rp {{ number_format($booking->room->harga_per_jam * $booking->durasi,0,',','.') }}</p>
             <p><strong>Status:</strong> {{ strtoupper($booking->status) }}</p>
