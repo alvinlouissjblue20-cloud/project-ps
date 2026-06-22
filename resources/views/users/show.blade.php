@@ -8,12 +8,33 @@
 
     <div class="bg-white p-6 rounded-xl shadow mb-6">
 
-        <p><strong>Nama:</strong> {{ $user->name }}</p>
+        <table class="w-full border">
+    <tr>
+        <td class="border p-3 font-bold">ID</td>
+        <td class="border p-3">{{ $user->id }}</td>
+    </tr>
 
-        <p><strong>Email:</strong> {{ $user->email }}</p>
+    <tr>
+        <td class="border p-3 font-bold">Nama</td>
+        <td class="border p-3">{{ $user->name }}</td>
+    </tr>
 
-        <p><strong>Total Booking:</strong> {{ $user->bookings->count() }}</p>
+    <tr>
+        <td class="border p-3 font-bold">Email</td>
+        <td class="border p-3">{{ $user->email }}</td>
+    </tr>
 
+    <tr>
+        <td class="border p-3 font-bold">Role</td>
+        <td class="border p-3">{{ $user->role }}</td>
+    </tr>
+
+    <tr>
+        <td class="border p-3 font-bold">Dibuat</td>
+        <td class="border p-3">{{ $user->created_at }}</td>
+    </tr>
+    
+</table>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow">
