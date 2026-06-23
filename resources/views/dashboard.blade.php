@@ -100,29 +100,27 @@
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
+                    <a href="{{ route('jadwal') }}"
+                       class="inline-flex items-center justify-center bg-indigo-600 text-white font-bold px-5 py-3 rounded-xl hover:bg-indigo-700 transition-all text-xs shadow-sm shadow-indigo-200">
+                        Jadwal Full Version
+                    </a>
 
-    <a href="{{ route('jadwal') }}"
-       class="inline-flex items-center justify-center bg-indigo-600 text-white font-bold px-5 py-3 rounded-xl hover:bg-indigo-700 transition-all text-xs shadow-sm">
-        Jadwal Booking
-    </a>
+                    <a href="/bookings"
+                       class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
+                        Riwayat
+                    </a>
 
-    <a href="/bookings"
-       class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
-        Riwayat
-    </a>
-
-    <form method="POST" action="{{ route('logout') }}" class="inline m-0">
-        @csrf
-        <button type="submit"
-            class="bg-rose-50 border border-rose-100 text-rose-600 font-bold px-5 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-rose-600 hover:text-white transition-all shadow-sm">
-            Keluar
-        </button>
-    </form>
-
-</div>
+                    <form method="POST" action="{{ route('logout') }}" class="inline m-0">
+                        @csrf
+                        <button type="submit"
+                            class="bg-rose-50 border border-rose-100 text-rose-600 font-bold px-5 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-rose-600 hover:text-white transition-all shadow-sm">
+                            Keluar
+                        </button>
+                    </form>
+                </div>
             </div>
 
-            <div class="grid grid-cols-3 gap-4 mb-8 max-w-lg">
+            <div class="grid grid-cols-3 gap-4 mb-10 max-w-lg">
                 <div class="bg-white px-4 py-3 rounded-xl border border-slate-100 shadow-sm">
                     <p class="text-[10px] font-bold text-slate-400 uppercase">Total Room</p>
                     <p class="text-lg font-black text-slate-700">{{ count($rooms) }}</p>
@@ -137,8 +135,63 @@
                 </div>
             </div>
 
-            <div>
+            <div class="mb-10 bg-white rounded-2xl border border-slate-200/80 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h2 class="text-lg font-black text-slate-800 uppercase tracking-wider">Slot Jadwal Penggunaan Ruangan</h2>
+                        <p class="text-sm text-slate-400 mt-0.5">Cek jam yang sudah dibooking sebelum melakukan pemesanan.</p>
+                    </div>
+                    <span class="text-xs font-bold px-3 py-1 bg-indigo-50 text-indigo-600 rounded-md">Live Tracker</span>
+                </div>
+                
+                @php
+                    $groupedBookings = isset($bookings) ? $bookings->groupBy('room.nama_ruangan') : collect();
+                @endphp
 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    @foreach(['A1', 'B1', 'C1'] as $rName)
+                        @php $rBookings = $groupedBookings->get($rName, collect()); @endphp
+                        <div class="bg-slate-50/70 border border-slate-200/60 rounded-xl p-5">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-base font-black text-slate-800 tracking-wide">Ruang {{ $rName }}</span>
+                                <span class="text-xs px-2.5 py-1 rounded bg-slate-200 text-slate-700 font-bold uppercase">{{ $rName == 'A1' ? 'PS3' : ($rName == 'B1' ? 'PS4' : 'PS5') }}</span>
+                            </div>
+                            
+                            <div class="space-y-3 max-h-[260px] overflow-y-auto pr-1">
+                                @forelse($rBookings as $b)
+                                    <div class="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-indigo-100 shadow-xs">
+                                        <div class="flex items-center gap-3">
+                                            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                                            <div class="flex flex-col">
+                                                <span class="font-black text-slate-800 text-base">
+                                                    {{ \Carbon\Carbon::parse($b->jam_mulai)->format('H:i') }} - {{ \Carbon\Carbon::parse($b->jam_mulai)->addHours($b->durasi)->format('H:i') }}
+                                                </span>
+                                                <span class="text-[10px] font-extrabold text-indigo-500 tracking-wider uppercase mt-0.5">
+                                                    @if(\Carbon\Carbon::parse($b->tanggal)->isToday())
+                                                        Hari Ini
+                                                    @elseif(\Carbon\Carbon::parse($b->tanggal)->isTomorrow())
+                                                        Besok
+                                                    @else
+                                                        {{ \Carbon\Carbon::parse($b->tanggal)->format('d/m') }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <span class="text-slate-500 text-sm font-semibold">Oleh: {{ Str::limit($b->user->name, 12) }}</span>
+                                    </div>
+                                @empty
+                                    <div class="text-center py-12 text-sm font-bold text-slate-400 bg-white border border-dashed border-slate-200 rounded-xl">
+                                        Semua jam kosong / aman
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div>
+                <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Pilih Ruangan Rental</h2>
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($rooms as $room)
                         @php 
@@ -155,12 +208,12 @@
                                     </span>
                                     
                                     @if($isDipakai)
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100">
-                                            <span class="w-2 h-2 rounded-full bg-rose-500"></span> Dipakai
+                                        <span class="inline-flex items-center justify-center bg-rose-100 w-6 h-6 rounded-full border border-rose-200 shadow-xs">
+                                            <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-100">
-                                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Tersedia
+                                        <span class="inline-flex items-center justify-center bg-emerald-100 w-6 h-6 rounded-full border border-emerald-200 shadow-xs">
+                                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                                         </span>
                                     @endif
                                 </div>
@@ -190,7 +243,7 @@
                         </div>
                     @empty
                         <div class="col-span-full bg-white rounded-2xl p-12 text-center border border-dashed border-slate-200">
-                            <h3 class="font-bold text-slate-700">Belum Ada Data Ruangan</h3>
+                           <h3 class="font-bold text-slate-700">Belum Ada Data Ruangan</h3>
                         </div>
                     @endforelse
                 </div>

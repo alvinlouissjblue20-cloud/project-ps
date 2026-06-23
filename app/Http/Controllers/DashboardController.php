@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Room;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -21,33 +22,39 @@ class DashboardController extends Controller
 
         $rooms = Room::orderBy('nama_ruangan', 'asc')->get();
 
-        return view('dashboard', compact(
+        $bookings = Booking::with(['room', 'user'])
+            ->whereDate('tanggal', '>=', Carbon::today())
+            ->orderBy('tanggal', 'asc')
+            ->orderBy('jam_mulai', 'asc')
+            ->get();
 
+        return view('dashboard', compact(
             'totalRooms',
             'tersedia',
             'dipakai',
             'totalBooking',
             'totalPemasukan',
-            'rooms'
-
+            'rooms',
+            'bookings'
         ));
     }
+
     public function keuangan()
     {
-    $bookings = Booking::where('status', 'selesai')
-        ->latest()
-        ->get();
+        $bookings = Booking::where('status', 'selesai')
+            ->latest()
+            ->get();
 
-    $total = $bookings->sum('total_harga');
+        $total = $bookings->sum('total_harga');
 
-    return view('keuangan', compact('bookings', 'total'));
+        return view('keuangan', compact('bookings', 'total'));
     }
 
     public function nota($id)
     {
-    $booking = Booking::with(['user', 'room'])
-        ->findOrFail($id);
+        $booking = Booking::with(['user', 'room'])
+            ->findOrFail($id);
 
-    return view('nota', compact('booking'));
+        return view('nota', compact('booking'));
     }
 }

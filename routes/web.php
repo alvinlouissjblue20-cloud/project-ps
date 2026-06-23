@@ -13,13 +13,9 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -35,25 +31,18 @@ Route::get('/keuangan/{id}', [DashboardController::class, 'nota'])
 Route::get('/jadwal', [BookingController::class, 'jadwal'])
     ->name('jadwal');
     
-Route::get('/bookings/{id}/selesai', [BookingController::class, 'selesai']);
-
-
 Route::get('/users', function () {
     $users = User::all();
-
     return view('users.index', compact('users'));
 });
 
 Route::get('/users/{id}', function ($id) {
-
-    $user = User::with('bookings.room')
-        ->findOrFail($id);
-
+    $user = User::with('bookings.room')->findOrFail($id);
     return view('users.show', compact('user'));
-
 });
 
-Route::get('/bookings/{id}/lunas', [BookingController::class, 'lunas']);
+Route::get('/booking-action/{id}/lunas', [BookingController::class, 'lunas']);
+Route::get('/booking-action/{id}/selesai', [BookingController::class, 'selesai']);
 
 Route::resource('rooms', RoomController::class);
 Route::resource('bookings', BookingController::class);
