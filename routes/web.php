@@ -49,9 +49,9 @@ Route::get('/users/{id}', function ($id) {
     return view('users.show', compact('user'));
 
 });
+Route::get('/bookings/{id}/lunas', [BookingController::class, 'lunas']);
 
 Route::resource('rooms', RoomController::class);
-
 Route::resource('bookings', BookingController::class);
 Route::resource('foods', FoodController::class);
 

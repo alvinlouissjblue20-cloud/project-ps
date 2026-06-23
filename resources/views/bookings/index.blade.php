@@ -79,23 +79,23 @@
 
                         <td class="p-4">
 
-                            @if($booking->status == 'aktif')
+                        @if($booking->status_pembayaran == 'lunas')
 
-                                <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm">
+                        <span class="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm">
 
-                                    Aktif
+                         Lunas
 
-                                </span>
+                        </span>
 
-                            @else
+                         @else
 
-                                <span class="bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm">
+                        <span class="bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm">
 
-                                    Selesai
+                        Belum Lunas
 
-                                </span>
+                        </span>
 
-                            @endif
+                         @endif
 
                         </td>
 
@@ -104,6 +104,18 @@
                                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
                                      Nota
                             </a>
+                            @if($booking->status_pembayaran == 'belum_lunas')
+
+                                <a href="/bookings/{{ $booking->id }}/lunas"
+                                        class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">
+
+                                                 ACC Pembayaran
+
+                                </a>
+
+                        @endif
+
+
                             @if($booking->status == 'aktif')
                             <a href="/bookings/{{ $booking->id }}/selesai"
                                      class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">

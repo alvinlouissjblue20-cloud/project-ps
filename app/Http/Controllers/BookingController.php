@@ -44,16 +44,15 @@ class BookingController extends Controller
         $total += $food->harga;
     }
 
-    $booking = Booking::create([
-
+   $booking = Booking::create([
     'user_id' => Auth::id(),
     'room_id' => $request->room_id,
     'tanggal' => $request->tanggal,
     'jam_mulai' => $request->jam_mulai,
     'durasi' => $request->durasi,
     'total_harga' => $total,
-    'status' => 'aktif'
-
+    'status' => 'aktif',
+    'status_pembayaran' => 'belum_lunas'
 ]);
 
 if($request->foods)
@@ -71,22 +70,40 @@ if($request->foods)
     }
 
     public function selesai($id) 
-    {
-        
+{
     $booking = Booking::findOrFail($id);
 
     $booking->status = 'selesai';
+    $booking->status_pembayaran = 'lunas';
     $booking->save();
 
     $room = Room::find($booking->room_id);
 
     $room->status = 'tersedia';
     $room->save();
+    
+    if($booking->status_pembayaran != 'lunas')
+{
+    return back()->with(
+        'error',
+        'Pembayaran belum diverifikasi'
+    );
+}
 
     return redirect('/bookings')
         ->with('success', 'Booking selesai!');
+}
+    public function lunas($id)
+    {
+    $booking = Booking::findOrFail($id);
+
+    $booking->status_pembayaran = 'lunas';
+    $booking->save();
+
+    return redirect('/bookings')
+        ->with('success', 'Pembayaran berhasil diverifikasi');
     }
-    
+
     public function show(Booking $booking)
     {
             $booking->load(['user', 'room', 'foods']);

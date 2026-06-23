@@ -19,7 +19,9 @@
             <p><strong>Durasi:</strong> {{ $booking->durasi }} Jam</p>
             <p><strong>Subtotal Room:</strong> Rp {{ number_format($booking->room->harga_per_jam * $booking->durasi,0,',','.') }}</p>
             <p><strong>Status:</strong> {{ strtoupper($booking->status) }}</p>
-
+            <p><strong>Status Pembayaran:</strong>
+                {{ strtoupper($booking->status_pembayaran ?? 'BELUM LUNAS') }}
+            </p>
             <hr class="my-4">
 
                 <h3 class="font-bold mb-2">
