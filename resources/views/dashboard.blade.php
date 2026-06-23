@@ -100,16 +100,26 @@
                     </p>
                 </div>
                 <div class="flex items-center gap-3">
-                    <a href="/bookings" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
-                        Riwayat
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="inline m-0">
-                        @csrf
-                        <button type="submit" class="bg-rose-50 border border-rose-100 text-rose-600 font-bold px-5 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-rose-600 hover:text-white transition-all shadow-sm">
-                            Keluar
-                        </button>
-                    </form>
-                </div>
+
+    <a href="{{ route('jadwal') }}"
+       class="inline-flex items-center justify-center bg-indigo-600 text-white font-bold px-5 py-3 rounded-xl hover:bg-indigo-700 transition-all text-xs shadow-sm">
+        Jadwal Booking
+    </a>
+
+    <a href="/bookings"
+       class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
+        Riwayat
+    </a>
+
+    <form method="POST" action="{{ route('logout') }}" class="inline m-0">
+        @csrf
+        <button type="submit"
+            class="bg-rose-50 border border-rose-100 text-rose-600 font-bold px-5 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-rose-600 hover:text-white transition-all shadow-sm">
+            Keluar
+        </button>
+    </form>
+
+</div>
             </div>
 
             <div class="grid grid-cols-3 gap-4 mb-8 max-w-lg">

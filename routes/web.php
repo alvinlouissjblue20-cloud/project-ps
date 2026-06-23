@@ -32,6 +32,9 @@ Route::get('/keuangan', [DashboardController::class, 'keuangan'])
 Route::get('/keuangan/{id}', [DashboardController::class, 'nota'])
     ->name('nota');
 
+Route::get('/jadwal', [BookingController::class, 'jadwal'])
+    ->name('jadwal');
+    
 Route::get('/bookings/{id}/selesai', [BookingController::class, 'selesai']);
 
 
@@ -49,6 +52,7 @@ Route::get('/users/{id}', function ($id) {
     return view('users.show', compact('user'));
 
 });
+
 Route::get('/bookings/{id}/lunas', [BookingController::class, 'lunas']);
 
 Route::resource('rooms', RoomController::class);

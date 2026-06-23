@@ -19,7 +19,7 @@ class BookingController extends Controller
 
     public function create()
     {
-    $rooms = Room::where('status', 'tersedia')->get();
+    $rooms = Room::all()->get();
 
     $foods = Food::all();
 
@@ -32,6 +32,51 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         $room = Room::findOrFail($request->room_id);
+
+        $jamMulaiBaru = strtotime($request->jam_mulai);
+
+$jamSelesaiBaru = strtotime(
+    $request->jam_mulai . ' +' . $request->durasi . ' hour'
+);
+
+
+
+$bookingBentrok = Booking::where(
+        'room_id',
+        $request->room_id
+    )
+    ->where(
+        'tanggal',
+        $request->tanggal
+    )
+    ->where(
+        'status',
+        'aktif'
+    )
+    ->get();
+
+foreach ($bookingBentrok as $booking)
+{
+    $jamMulaiLama = strtotime($booking->jam_mulai);
+
+    $jamSelesaiLama = strtotime(
+        $booking->jam_mulai . ' +' .
+        $booking->durasi . ' hour'
+    );
+
+    if (
+        $jamMulaiBaru < $jamSelesaiLama &&
+        $jamSelesaiBaru > $jamMulaiLama
+    )
+    {
+        return back()
+            ->withInput()
+            ->with(
+                'error',
+                'Jam yang dipilih bentrok dengan booking lain.'
+            );
+    }
+}
 
         $total = $room->harga_per_jam * $request->durasi;
 
@@ -62,37 +107,29 @@ if($request->foods)
         $booking->foods()->attach($foodId);
     }
 }
-        $room->status = 'dipakai';
-        $room->save();
-
         return redirect('/bookings')
             ->with('success', 'Booking berhasil!');
     }
 
-    public function selesai($id) 
+   public function selesai($id)
 {
     $booking = Booking::findOrFail($id);
 
-    $booking->status = 'selesai';
-    $booking->status_pembayaran = 'lunas';
-    $booking->save();
-
-    $room = Room::find($booking->room_id);
-
-    $room->status = 'tersedia';
-    $room->save();
-    
     if($booking->status_pembayaran != 'lunas')
-{
-    return back()->with(
-        'error',
-        'Pembayaran belum diverifikasi'
-    );
-}
+    {
+        return back()->with(
+            'error',
+            'Pembayaran belum diverifikasi'
+        );
+    }
+
+    $booking->status = 'selesai';
+    $booking->save();
 
     return redirect('/bookings')
         ->with('success', 'Booking selesai!');
 }
+
     public function lunas($id)
     {
     $booking = Booking::findOrFail($id);
@@ -113,5 +150,21 @@ if($request->foods)
     
 
     return view('bookings.show', compact('booking'));
+
+    
+}
+public function jadwal()
+{
+    $rooms = Room::all();
+
+    $bookings = Booking::with('room', 'user')
+        ->orderBy('tanggal')
+        ->orderBy('jam_mulai')
+        ->get();
+
+    return view('bookings.jadwal', compact(
+        'rooms',
+        'bookings'
+    ));
 }
 }

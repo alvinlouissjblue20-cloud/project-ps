@@ -6,13 +6,23 @@
 
         <div class="bg-white shadow rounded-2xl p-8">
 
-            <h1 class="text-3xl font-bold text-gray-800 mb-8">
+           <h1 class="text-3xl font-bold text-gray-800 mb-8">
 
-                Booking Ruangan
+    Booking Ruangan
 
-            </h1>
+</h1>
 
-            <form action="/bookings" method="POST">
+@if(session('error'))
+
+<div class="mb-4 bg-red-100 border border-red-300 text-red-700 px-4 py-3 rounded-xl">
+
+    {{ session('error') }}
+
+</div>
+
+@endif
+
+<form action="/bookings" method="POST">
 
                 @csrf
 
