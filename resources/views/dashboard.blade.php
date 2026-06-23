@@ -101,7 +101,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                     <a href="/bookings" class="inline-flex items-center justify-center bg-white border border-slate-200 text-slate-600 font-bold px-5 py-3 rounded-xl hover:bg-slate-50 hover:text-slate-900 transition-all text-xs shadow-sm">
-                        Riwayat Orang yang main
+                        Riwayat
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline m-0">
                         @csrf
@@ -128,10 +128,6 @@
             </div>
 
             <div>
-                <div class="flex items-center gap-2 mb-6 border-b border-slate-200/60 pb-2">
-                    <h2 class="text-xl font-extrabold text-slate-800 tracking-tight">Ruangan Siap Dipesan</h2>
-                    <span class="inline-flex items-center bg-emerald-500 text-white font-bold text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider animate-pulse">Ready To Play</span>
-                </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @forelse($rooms as $room)

@@ -86,6 +86,7 @@ if($request->foods)
     return redirect('/bookings')
         ->with('success', 'Booking selesai!');
     }
+    
     public function show(Booking $booking)
     {
             $booking->load(['user', 'room', 'foods']);

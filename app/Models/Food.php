@@ -18,7 +18,7 @@ class Food extends Model
 
     public function bookings()
 {
-    return $this->belongsToMany(Food::class)
+    return $this->belongsToMany(Booking::class)
         ->withPivot('qty')
         ->withTimestamps();
 }
